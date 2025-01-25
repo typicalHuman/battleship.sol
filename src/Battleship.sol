@@ -519,6 +519,23 @@ contract Battleship {
     //                       Pure functions                       //
     ////////////////////////////////////////////////////////////////
 
+    function playerBoardId(
+        address player,
+        uint gameId
+    ) public pure returns (bytes32) {
+        return keccak256(abi.encodePacked(player, gameId));
+    }
+
+    function coordinatesId(
+        uint coordinateNumber,
+        uint coordinateLiteralNumber
+    ) public pure returns (bytes32) {
+        return
+            keccak256(
+                abi.encodePacked(coordinateNumber, coordinateLiteralNumber)
+            );
+    }
+    
     function _checkNeighboursIntersections(
         uint coordinateNumber,
         uint coordinateLiteralNumber,
@@ -560,20 +577,4 @@ contract Battleship {
         return false;
     }
 
-    function playerBoardId(
-        address player,
-        uint gameId
-    ) public pure returns (bytes32) {
-        return keccak256(abi.encodePacked(player, gameId));
-    }
-
-    function coordinatesId(
-        uint coordinateNumber,
-        uint coordinateLiteralNumber
-    ) public pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encodePacked(coordinateNumber, coordinateLiteralNumber)
-            );
-    }
 }
