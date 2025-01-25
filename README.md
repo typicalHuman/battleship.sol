@@ -1,6 +1,6 @@
 # battleship.sol
 
-On-chain Battleship implementation. The correctness of the setup is ensured through financial incentives: to start playing, users deposit a certain amount of tokens, which they can claim back upon the game's conclusion. However, if their board is incorrect, the user who cheated will be penalized and will not be able to recover their deposit.
+On-chain Battleship game implementation. The correctness of the setup is ensured through financial incentives: to start playing, users deposit a certain amount of tokens, which they can claim back upon the game's conclusion. However, if their board is incorrect, the user who cheated will be penalized and will not be able to recover their deposit.
 
 ## Installation
 
