@@ -1,0 +1,38 @@
+Ran 16 tests for test/Battleship.t.sol:BattleshipTest
+[PASS] testCancelGame_RevertsIfNotExpired() (gas: 206397)
+[PASS] testConfirmMove_Hit() (gas: 1640345)
+[PASS] testConfirmMove_Miss() (gas: 1597766)
+[PASS] testCreateGame() (gas: 179539)
+[PASS] testIncorrectBoard_Neighbours() (gas: 22915637)
+[PASS] testIncorrectBoard_Ships() (gas: 23337444)
+[PASS] testMakeMove() (gas: 314227)
+[PASS] testMakeMove_RevertsIfInvalidCoordinates() (gas: 217978)
+[PASS] testWin1() (gas: 22431278)
+[PASS] testWin1Reversed() (gas: 22437493)
+[PASS] testWin1_ClaimDeposits() (gas: 24394218)
+[PASS] testWin1_ClaimDepositsReversed() (gas: 24400618)
+[PASS] testWin2() (gas: 22432444)
+[PASS] testWin2Reversed() (gas: 22431296)
+[PASS] testWin2_ClaimDeposits() (gas: 24393544)
+[PASS] testWin2_ClaimDepositsReversed() (gas: 24398692)
+Suite result: ok. 16 passed; 0 failed; 0 skipped; finished in 666.67ms (2.31s CPU time)
+| src/Battleship.sol:Battleship contract |                 |        |        |        |         |
+|----------------------------------------|-----------------|--------|--------|--------|---------|
+| Deployment Cost                        | Deployment Size |        |        |        |         |
+| 2478475                                | 10785           |        |        |        |         |
+| Function Name                          | min             | avg    | median | max    | # calls |
+| boardRoots                             | 483             | 483    | 483    | 483    | 1       |
+| cancelGame                             | 33274           | 33274  | 33274  | 33274  | 1       |
+| claimSafeDeposit                       | 278805          | 699883 | 751313 | 755393 | 10      |
+| confirmMove                            | 84438           | 113603 | 111864 | 133460 | 202     |
+| coordinatesId                          | 533             | 533    | 533    | 533    | 2       |
+| createGame                             | 168912          | 168912 | 168912 | 168912 | 16      |
+| gameCorrectHits                        | 645             | 1645   | 1645   | 2645   | 2       |
+| gameHits                               | 696             | 696    | 696    | 696    | 2       |
+| games                                  | 1247            | 1247   | 1247   | 1247   | 1       |
+| getWinner                              | 506             | 506    | 506    | 506    | 10      |
+| lastMoves                              | 2184            | 2184   | 2184   | 2184   | 1       |
+| literals                               | 987             | 987    | 987    | 987    | 2       |
+| makeMove                               | 44695           | 67394  | 61904  | 135390 | 204     |
+| playerBoardId                          | 591             | 591    | 591    | 591    | 3       |
+| setGameBoard                           | 71674           | 71674  | 71674  | 71674  | 12      |
