@@ -54,22 +54,13 @@ contract BattleshipTest is Test {
         bytes32 boardRoot = keccak256("boardRootPlayer1");
         uint256 gameId = battleship.createGame(player2, boardRoot);
 
-        (
-            uint256 id,
-            ,
-            address p1,
-            address p2,
-            address winner,
-            bool cancelled,
-            bool withdrawUnlocked
-        ) = battleship.games(gameId);
+        (uint256 id, , address p1, address p2, address winner) = battleship
+            .games(gameId);
 
         assertEq(id, 0);
         assertEq(p1, player1);
         assertEq(p2, player2);
         assertEq(winner, address(0));
-        assertEq(cancelled, false);
-        assertEq(withdrawUnlocked, false);
         assertEq(
             battleship.boardRoots(battleship.playerBoardId(player1, gameId)),
             boardRoot
@@ -146,8 +137,8 @@ contract BattleshipTest is Test {
         vm.prank(player2);
         battleship.confirmMove(gameId, proof, hit);
 
-        bytes32  playerBoardId = battleship.playerBoardId(player2, gameId);
-        bytes32  coordinatesId = battleship.coordinatesId(
+        bytes32 playerBoardId = battleship.playerBoardId(player2, gameId);
+        bytes32 coordinatesId = battleship.coordinatesId(
             5,
             battleship.literals("A")
         );
@@ -191,8 +182,8 @@ contract BattleshipTest is Test {
         vm.prank(player2);
         battleship.confirmMove(gameId, proof, hit);
 
-        bytes32  playerBoardId = battleship.playerBoardId(player2, gameId);
-        bytes32  coordinatesId = battleship.coordinatesId(
+        bytes32 playerBoardId = battleship.playerBoardId(player2, gameId);
+        bytes32 coordinatesId = battleship.coordinatesId(
             1,
             battleship.literals("H")
         );

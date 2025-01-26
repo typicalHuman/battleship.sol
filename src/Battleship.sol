@@ -49,14 +49,12 @@ contract Battleship {
         address player1;
         address player2;
         address winner;
-        bool cancelled;
-        bool withdrawUnlocked;
     }
 
     ////////////////////////////////////////////////////////////////
     //                      State Variables                       //
     ////////////////////////////////////////////////////////////////
-
+    
     uint public gameIdCounter;
     mapping(uint gameId => Game) public games;
     mapping(bytes32 playerBoardId => mapping(bytes32 coordinatesId => Status))
@@ -177,7 +175,8 @@ contract Battleship {
         Move memory lastMove = lastMoves[gameId];
         return
             games[gameId].winner != address(0) &&
-            (block.timestamp > games[gameId].creationTimestamp ||
+            (block.timestamp >
+                games[gameId].creationTimestamp + GAME_PREPARE_TIME ||
                 (lastMove.timestamp != 0 &&
                     block.timestamp - lastMove.timestamp > MOVE_MAX_TIME));
     }
@@ -221,9 +220,7 @@ contract Battleship {
             creationTimestamp: block.timestamp,
             player1: msg.sender,
             player2: opponent,
-            winner: address(0),
-            cancelled: false,
-            withdrawUnlocked: false
+            winner: address(0)
         });
         boardRoots[playerBoardId(msg.sender, newId)] = boardRoot;
         IERC20(safeDepositToken).safeTransferFrom(
@@ -235,7 +232,6 @@ contract Battleship {
         emit GameCreated(newId, msg.sender, opponent);
         return newId;
     }
-    // @audit check if we can withdraw funds if user didn't agree to play
     function cancelGame(uint gameId) external {
         _checkGameNotFinished(gameId);
 
@@ -253,8 +249,6 @@ contract Battleship {
             revert PlayerCantCancelGame();
         }
         games[gameId].winner = msg.sender;
-        games[gameId].withdrawUnlocked = true;
-        games[gameId].cancelled = true;
         emit GameCancelled(gameId, msg.sender);
     }
 
@@ -349,7 +343,6 @@ contract Battleship {
             gameCorrectHits[_playerBoardId][_coordinatesId] = true;
             if (totalHits == MAX_HITS_AMOUNT) {
                 games[gameId].winner = move.player;
-                games[gameId].withdrawUnlocked = true;
                 emit GameWon(gameId, move.player);
             }
         }
@@ -535,7 +528,7 @@ contract Battleship {
                 abi.encodePacked(coordinateNumber, coordinateLiteralNumber)
             );
     }
-    
+
     function _checkNeighboursIntersections(
         uint coordinateNumber,
         uint coordinateLiteralNumber,
@@ -576,5 +569,4 @@ contract Battleship {
         }
         return false;
     }
-
 }
